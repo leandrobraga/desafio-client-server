@@ -64,27 +64,27 @@ func CotacaoHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		defer db.Close()
 
-		// 	const create string = `
-		// CREATE TABLE IF NOT EXISTS cotacao (
-		// 	id TEXT NOT NULL PRIMARY KEY,
-		// 	code TEXT,
-		// 	codein TEXT,
-		// 	name TEXT,
-		// 	high TEXT,
-		// 	low TEXT,
-		// 	varBid TEXT,
-		// 	pctChange TEXT,
-		// 	bid TEXT,
-		// 	ask TEXT,
-		// 	timestamp TEXT,
-		// 	create_date TEXT
-		// );`
-		// 	_, err = db.Exec(create)
-		// 	if err != nil {
-		// 		w.WriteHeader(http.StatusInternalServerError)
-		// 		log.Fatalf("Error happened in Create Table Cotacao. Err: %s", err)
-		// 		return
-		// 	}
+		const create string = `
+		CREATE TABLE IF NOT EXISTS cotacao (
+			id TEXT NOT NULL PRIMARY KEY,
+			code TEXT,
+			codein TEXT,
+			name TEXT,
+			high TEXT,
+			low TEXT,
+			varBid TEXT,
+			pctChange TEXT,
+			bid TEXT,
+			ask TEXT,
+			timestamp TEXT,
+			create_date TEXT
+		);`
+		_, err = db.Exec(create)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			log.Fatalf("Error happened in Create Table Cotacao. Err: %s", err)
+			return
+		}
 
 		cotacao.ID = uuid.New().String()
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
